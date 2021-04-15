@@ -37,15 +37,14 @@ public class DB {
         String sql2 = "SELECT IDZap FROM Popravlja";
         String sql3 = "SELECT IDKam FROM Putovanje WHERE IDPut = "+IdPut;
         String sql4 = "DELETE FROM SePrevozi WHERE IdPut = " + IdPut;
-        String sql5 = "UPDATE Kamion SET BrPopravljanja = BrPopravljanja + 1 WHERE IDKam = ?";
- 
+      
         try (Connection conn = DriverManager.getConnection(connectionString); 
              PreparedStatement ps = conn.prepareStatement(sql);
              PreparedStatement ps1 = conn.prepareStatement(sql1);
              PreparedStatement ps2 = conn.prepareStatement(sql2);
              PreparedStatement ps3 = conn.prepareStatement(sql3);
              PreparedStatement ps4 = conn.prepareStatement(sql4);
-             PreparedStatement ps5 = conn.prepareStatement(sql5)) {
+             ) {
             conn.setAutoCommit(false);
             List<Integer> IDMehanicari = new LinkedList<>();
             List<Integer> IDZauzeti = new LinkedList<>();
@@ -88,9 +87,6 @@ public class DB {
             
             ps4.execute();
        
-            ps5.setInt(1, idKam);
-            ps5.executeUpdate();
-            
             conn.commit();
             System.out.println("Uspesna realizacija");
 
